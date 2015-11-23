@@ -1613,6 +1613,10 @@ function! s:Dispatch(bang, args)
     execute cd fnameescape(s:repo().tree())
     if exists(':Make') == 2
       noautocmd Make
+    elseif exists(':terminal')
+      belowright split | enew
+      execute 'terminal' g:fugitive_git_executable a:args
+      startinsert
     else
       silent noautocmd make!
       redraw!
